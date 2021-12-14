@@ -1,0 +1,29 @@
+name: deploy-container
+
+# trigger this workflow when a commit is pushed to master branch
+# and changes are made to the container directory
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - container/**
+
+defaults:
+  run:
+    working-directory: container
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2 # copy our container code to virtual machine
+      - run: npm install
+      - run: npm run build
+
+      # move the created dist directory to AWS S3
+      - uses: chrislennon/action-aws-cli@v1.1 # install aws cli
+      - run: aws s3 sync dist s3://${{ secrets.AWS_BUCKET_NAME }}/container/latest
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_ACCESS_KEY_SECRET: ${{ secrets.AWS_ACCESS_KEY_SECRET }}
