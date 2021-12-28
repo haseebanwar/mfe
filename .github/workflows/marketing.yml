@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - run: actions/checkout@v2 # copy marketing code to VM
+      - uses: actions/checkout@v2 # copy marketing code to VM
       - run: npm install
       - run: npm run build
 
