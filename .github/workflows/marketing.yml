@@ -2,9 +2,10 @@ name: deploy-marketing
 
 on:
   push:
-    - master
-  paths:
-    - 'marketing/**'
+    branches:
+      - master
+    paths:
+      - 'marketing/**'
 
 defaults:
   run:
