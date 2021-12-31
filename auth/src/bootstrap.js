@@ -1,9 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createMemoryHistory, createBrowserHistory } from 'history';
+import { createBrowserHistory, createMemoryHistory } from 'history';
 import App from './App';
 
-// mount function to start the app
 const mount = (elem, options) => {
   const { onNavigate, defaultHistory } = options;
 
@@ -30,14 +29,15 @@ const mount = (elem, options) => {
 
 // if we are running this app in isolation and development, mount the app right away
 if (process.env.NODE_ENV === 'development') {
-  const elem = document.getElementById('iso-root-marketing');
+  const elem = document.getElementById('iso-root-auth');
 
-  // assuming that element with id 'iso-root-marketing' only exists in this app's html file
-  if (elem)
+  // assuming that element with id 'iso-root-auth' only exists in this app's html file
+  if (elem) {
     mount(elem, {
       // using browser history in development and isolation
       defaultHistory: createBrowserHistory(),
     });
+  }
 }
 
 // otherwise, export the mount function so container can mount
