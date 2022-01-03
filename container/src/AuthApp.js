@@ -21,6 +21,7 @@ const AuthApp = (props) => {
       },
       onSignIn: () => {
         setIsAuthenticated(true);
+        history.push('/dashboard');
       },
     });
 

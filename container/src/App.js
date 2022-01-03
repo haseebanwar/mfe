@@ -1,5 +1,10 @@
 import React, { lazy, Suspense, useState } from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from 'react-router-dom';
 import {
   StylesProvider,
   createGenerateClassName,
@@ -9,6 +14,7 @@ import Header from './Header';
 
 const AuthLazy = lazy(() => import('./AuthApp'));
 const MarketingLazy = lazy(() => import('./MarketingApp'));
+const DashboardLazy = lazy(() => import('./DashboardApp'));
 
 const generateClassName = createGenerateClassName({
   productionPrefix: 'co', // prefix classnames with 'co' in production
@@ -30,6 +36,12 @@ const App = () => {
               <Route path="/auth">
                 <AuthLazy setIsAuthenticated={setIsAuthenticated} />
               </Route>
+
+              <Route path="/dashboard">
+                {!isAuthenticated && <Redirect to="/" />}
+                <DashboardLazy />
+              </Route>
+
               <Route path="/">
                 <MarketingLazy />
               </Route>
