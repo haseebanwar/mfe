@@ -3,6 +3,8 @@ import { useHistory } from 'react-router-dom';
 import { mount } from 'auth/AuthIndex';
 
 const AuthApp = (props) => {
+  const { setIsAuthenticated } = props;
+
   const ref = useRef();
   const history = useHistory();
 
@@ -16,6 +18,9 @@ const AuthApp = (props) => {
         if (pathname !== nextPathname) {
           history.push(nextPathname);
         }
+      },
+      onSignIn: () => {
+        setIsAuthenticated(true);
       },
     });
 
