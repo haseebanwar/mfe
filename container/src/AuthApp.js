@@ -1,13 +1,11 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
-import { mount } from 'marketing/MarketingIndex';
+import { mount } from 'auth/AuthIndex';
 
-const MarketingApp = (props) => {
+const AuthApp = (props) => {
   const ref = useRef();
-
   const history = useHistory();
 
-  // effect for mounting marketing app
   useEffect(() => {
     const { onContainerNavigate } = mount(ref.current, {
       initialPath: history.location.pathname,
@@ -21,10 +19,11 @@ const MarketingApp = (props) => {
       },
     });
 
+    // sync container location in auth app
     history.listen(onContainerNavigate);
-  }, []);
+  }, [history]);
 
   return <div ref={ref}></div>;
 };
 
-export default MarketingApp;
+export default AuthApp;

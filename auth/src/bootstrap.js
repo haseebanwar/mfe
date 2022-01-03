@@ -4,9 +4,13 @@ import { createBrowserHistory, createMemoryHistory } from 'history';
 import App from './App';
 
 const mount = (elem, options) => {
-  const { onNavigate, defaultHistory } = options;
+  const { onNavigate, defaultHistory, initialPath } = options;
 
-  const history = defaultHistory || createMemoryHistory();
+  const history =
+    defaultHistory ||
+    createMemoryHistory({
+      initialEntries: [initialPath],
+    });
 
   if (onNavigate) {
     // call the navigation function in container whenever memory history of this app is updated
